@@ -29,18 +29,18 @@ class bsForum extends bsDatabase {
 
     public function postNewThread($title, $description, $created_by)
     {
-        $query = $this->connection->prepare("INSERT INTO `bs_threads` (`title`, `description`, `created_by`)
-        VALUES (:title, :description, :created_by)");
-        $insert = $query->execute(array("title" => $title, "description" => $description, "created_by" => $created_by));
+        $query = $this->connection->prepare("INSERT INTO `bs_threads` (`title`, `description`, `created_by`, `created_date`)
+        VALUES (:title, :description, :created_by, :created_date)");
+        $insert = $query->execute(array("title" => $title, "description" => $description, "created_by" => $created_by, "created_date" => date("Y-m-d H:i:s")));
 
         return $insert;
     }
 
-    public function postNewComment($threadId, $comment, $created_by)
+    public function postNewComment($threadId, $comment, $created_by, $responseTo)
     {
-        $query = $this->connection->prepare("INSERT INTO `bs_comments` (`comment`, `created_by`, `thread_id`)
-        VALUES (:comment, :created_by, :thread_id)");
-        $insert = $query->execute(array("comment" => $comment, "created_by" => $created_by, "thread_id" => $threadId));
+        $query = $this->connection->prepare("INSERT INTO `bs_comments` (`comment`, `created_by`, `thread_id`, `created_date`, `response_to`)
+        VALUES (:comment, :created_by, :thread_id, :created_date, :response_to)");
+        $insert = $query->execute(array("comment" => $comment, "created_by" => $created_by, "thread_id" => $threadId, "created_date" => date("Y-m-d H:i:s"), "response_to" => $responseTo));
 
         return $insert;
     }

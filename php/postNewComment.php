@@ -3,4 +3,4 @@ require("class/bsForum.php");
 
 $obj = new bsForum();
 
-echo json_encode($obj->postNewComment($_POST["thread_id"], $_POST["comment"], $_POST["created_by"]));
+echo json_encode($obj->postNewComment($_POST["thread_id"], $_POST["comment"], $_POST["created_by"], $_POST["response_to"]));
