@@ -24,18 +24,24 @@ $(document).ready(function()
 
         getThreads();
 
-        function getComments(threadid)
-        {
-            $.post("php/getThreadComments.php",
+        //if comments is clicked fire the getComments function
+        $(".threads").on("click", "a", function(event){
+            threadId = event.target.id;
+
+            $.post("php/getThreadComments.php", { "thread_id": threadId },
                 function(data) {
+                    var comments = "<ul class=\"media-list\">";
+
                     for (var i in data)
                     {
-                        var thread = "<h4>" + data[i].title + " <a id=\"" + data[i].id + "\" href=\"#\"><small>view comments</small></a></h4>"
-                            + "<p>" + data[i].description + "</p>"
-                            + "<br>";
-
-                        $(".threads").append(thread);
+                        comments += "<li class=\"media\">"
+                        + "<div class=\"media-body\">"
+                        + data[i].comment
+                        + "</div></li>";
                     }
+
+                    comments += "</ul>";
+                    $("#" + threadId).after(comments);
                 }, "json");
-        }
+        });
     });
