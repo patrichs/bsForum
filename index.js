@@ -13,8 +13,9 @@ $(document).ready(function()
                         var commentsCount = data[i].comments_count;
 
                         var thread = "<div id=\"panel panel-primary\"><div class=\"panel-body\"><h4>" + title + "</h4>"
-                            + "" + description + "</div>"
-                            + "<div class=\"panel-footer\"><a id=\"" + threadId + "\" href=\"#\">" + commentsCount + " comments</a> <small>posted on " + dateCreated + "</small></div>"
+                            + description + "</div>"
+                            + "<div class=\"panel-footer\"><a id=\"" + threadId + "\" href=\"#\">" + commentsCount
+                            + " comments</a> <small>posted on " + dateCreated + "</small></div>"
                             + "</div><div class=\"comments" + threadId + "\"></div>";
 
                         $(".threads").append(thread);
@@ -24,9 +25,19 @@ $(document).ready(function()
 
         getThreads();
 
+        function addReplyArea(threadId)
+        {
+            var textarea = "<div class=\"row\"><div class=\"col-md-12 form-group\" style=\"margin-top: 5px;\"><textarea class=\"form-control\" rows=\"3\"></textarea>"
+                + "<button class=\"btn btn-primary btn-xs\" style=\"margin-top: 5px;\">reply</button></div></div>";
+
+            $(".comments" + threadId).append(textarea);
+        }
+
         //if comments is clicked fire the getComments function
         $(".threads").on("click", "a", function(event){
             threadId = event.target.id;
+
+            addReplyArea(threadId);
 
             $.post("php/getThreadComments.php", { "thread_id": threadId },
                 function(data) {
@@ -43,5 +54,7 @@ $(document).ready(function()
                     comments += "</ul>";
                     $(".comments" + threadId).append(comments);
                 }, "json");
+
+            event.target.remove();
         });
     });

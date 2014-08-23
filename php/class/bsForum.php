@@ -5,7 +5,7 @@ class bsForum extends bsDatabase {
 
     public function getActiveThreads()
     {
-        $query = $this->connection->prepare("SELECT * FROM `bs_threads` WHERE `active` = 1");
+        $query = $this->connection->prepare("SELECT * FROM `bs_threads` WHERE `active` = 1 ORDER BY `id` DESC LIMIT 10");
         $query->execute();
 
         return $query->fetchAll(PDO::FETCH_ASSOC);
