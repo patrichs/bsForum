@@ -14,8 +14,8 @@ $(document).ready(function()
 
                         var thread = "<div id=\"panel panel-primary\"><div class=\"panel-body\"><h4>" + title + "</h4>"
                             + "" + description + "</div>"
-                            + "<div class=\"panel-footer\"><a id=\"" + threadId + "\" href=\"#\">" + commentsCount + " comments</a></div>"
-                            + "</div>";
+                            + "<div class=\"panel-footer\"><a id=\"" + threadId + "\" href=\"#\">" + commentsCount + " comments</a> <small>posted on " + dateCreated + "</small></div>"
+                            + "</div><div class=\"comments" + threadId + "\"></div>";
 
                         $(".threads").append(thread);
                     }
@@ -41,7 +41,7 @@ $(document).ready(function()
                     }
 
                     comments += "</ul>";
-                    $("#" + threadId).after(comments);
+                    $(".comments" + threadId).append(comments);
                 }, "json");
         });
     });
