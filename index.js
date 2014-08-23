@@ -10,16 +10,14 @@ $(document).ready(function()
                         var description = data[i].description;
                         var threadId = data[i].id;
                         var dateCreated = data[i].created_date;
+                        var commentsCount = data[i].comments_count;
 
-                        $.post("php/getThreadCommentsCount.php", { "thread_id": data[i].id },
-                            function(data) {
-                                var thread = "<h4>" + title + " <small>" + dateCreated + "</small></a></h4>"
-                                    + "<p>" + description + "</p>"
-                                    + "<a id=\"" + threadId + "\" href=\"#\"><small>" + data.commentsCount + " comments</small></a>"
-                                    + "<br>";
+                        var thread = "<div id=\"panel panel-primary\"><div class=\"panel-body\"><h4>" + title + "</h4>"
+                            + "" + description + "</div>"
+                            + "<div class=\"panel-footer\"><a id=\"" + threadId + "\" href=\"#\">" + commentsCount + " comments</a></div>"
+                            + "</div>";
 
-                                $(".threads").append(thread);
-                            }, "json");
+                        $(".threads").append(thread);
                     }
                 }, "json");
         }

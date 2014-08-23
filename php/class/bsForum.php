@@ -52,4 +52,12 @@ class bsForum extends bsDatabase {
 
         return $query->rowCount();
     }
+
+    public function updateCommentCounter($threadId)
+    {
+        $query = $this->connection->prepare("UPDATE `bs_threads` SET `comments_count` = (comments_count + 1) WHERE `id` = :thread_id");
+        $update = $query->execute(array("thread_id" => $threadId));
+
+        return $update;
+    }
 } 
