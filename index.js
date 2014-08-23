@@ -16,7 +16,8 @@ $(document).ready(function()
                             + description + "</div>"
                             + "<div class=\"panel-footer\"><a id=\"" + threadId + "\" href=\"#\">" + commentsCount
                             + " comments</a> <small>posted on " + dateCreated + "</small></div>"
-                            + "</div><div class=\"comments" + threadId + "\"></div>";
+                            + "</div>"
+                            + "<div class=\"comments" + threadId + "\"></div>";
 
                         $(".threads").append(thread);
                     }
@@ -27,8 +28,8 @@ $(document).ready(function()
 
         function addReplyArea(threadId)
         {
-            var textarea = "<div class=\"row\"><div class=\"col-md-12 form-group\" style=\"margin-top: 5px;\"><textarea class=\"form-control\" rows=\"3\"></textarea>"
-                + "<button class=\"btn btn-primary btn-xs\" style=\"margin-top: 5px;\">reply</button></div></div>";
+            var textarea = "<div class=\"row\"><div class=\"col-md-12 form-group\" style=\"margin-top: 5px;\"><textarea class=\"form-control" + "\" rows=\"3\"></textarea>"
+                + "<button type=\"button\" class=\"btn btn-primary btn-xs\" style=\"margin-top: 5px;\" data-id=\"" + threadId + "\">reply</button></div></div>";
 
             $(".comments" + threadId).append(textarea);
         }
@@ -46,9 +47,10 @@ $(document).ready(function()
                     for (var i in data)
                     {
                         comments += "<li class=\"media\">"
-                        + "<div class=\"media-body\">"
+                        + "<div class=\"media-body\"><pre>"
+                        + "#" + i + " "
                         + data[i].comment
-                        + "</div></li>";
+                        + "</pre></div></li>";
                     }
 
                     comments += "</ul>";
@@ -57,4 +59,9 @@ $(document).ready(function()
 
             event.target.remove();
         });
+
+        function addReply($threadId)
+        {
+
+        }
     });
